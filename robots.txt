@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sushant404.github.io/irmanalysis-CBS/sitemap.xml
