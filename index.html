@@ -1,0 +1,1616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The architecture of a wartime interview: Netanyahu on 60 Minutes</title>
+<style>
+  :root {
+    --bg: #fbfaf6;
+    --surface: #ffffff;
+    --ink: #1f1d1a;
+    --ink-soft: #4a4742;
+    --ink-mute: #76726b;
+    --rule: rgba(31, 29, 26, 0.12);
+    --rule-soft: rgba(31, 29, 26, 0.06);
+    --accent: #7a2a1f;
+    --accent-soft: #f4ece8;
+    --warn: #8a6a16;
+    --warn-soft: #f8efd9;
+    --good: #2c5a3e;
+    --good-soft: #e6efe7;
+    --serif: "Iowan Old Style", "Apple Garamond", Georgia, "Times New Roman", serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Inter", "Helvetica Neue", Arial, sans-serif;
+    --mono: "SF Mono", Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  .container {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 64px 28px 96px;
+  }
+  .wide {
+    max-width: 980px;
+    margin: 32px auto;
+    padding: 0 28px;
+  }
+  header.masthead {
+    border-bottom: 0.5px solid var(--rule);
+    padding-bottom: 28px;
+    margin-bottom: 48px;
+  }
+  .kicker {
+    font-family: var(--sans);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 11px;
+    color: var(--ink-mute);
+    margin-bottom: 16px;
+  }
+  h1 {
+    font-family: var(--serif);
+    font-size: 38px;
+    line-height: 1.15;
+    margin: 0 0 18px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+  .dek {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 19px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+  .meta {
+    font-family: var(--sans);
+    font-size: 13px;
+    color: var(--ink-mute);
+    margin-top: 24px;
+  }
+  h2 {
+    font-family: var(--serif);
+    font-size: 26px;
+    line-height: 1.25;
+    margin: 56px 0 18px;
+    font-weight: 500;
+    letter-spacing: -0.005em;
+  }
+  h2 .num {
+    font-family: var(--sans);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    color: var(--accent);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+  h3 {
+    font-family: var(--sans);
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+    margin: 36px 0 14px;
+    font-weight: 500;
+  }
+  p { margin: 0 0 18px; }
+  p + p { margin-top: 0; }
+  em { font-style: italic; }
+  strong { font-weight: 500; color: var(--ink); }
+  a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+  .lead::first-letter {
+    initial-letter: 3;
+    font-weight: 500;
+    color: var(--accent);
+    margin-right: 6px;
+  }
+  blockquote {
+    border-left: 2px solid var(--accent);
+    padding: 4px 0 4px 22px;
+    margin: 22px 0;
+    font-style: italic;
+    color: var(--ink-soft);
+  }
+  .note {
+    background: var(--surface);
+    border: 0.5px solid var(--rule);
+    border-radius: 4px;
+    padding: 18px 22px;
+    margin: 24px 0;
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  .note .label {
+    font-family: var(--sans);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 11px;
+    color: var(--ink-mute);
+    margin-bottom: 6px;
+  }
+  .pull {
+    font-family: var(--serif);
+    font-size: 22px;
+    line-height: 1.4;
+    color: var(--ink);
+    border-top: 0.5px solid var(--rule);
+    border-bottom: 0.5px solid var(--rule);
+    padding: 26px 0;
+    margin: 36px 0;
+    font-style: italic;
+  }
+  hr.section {
+    border: 0;
+    border-top: 0.5px solid var(--rule);
+    margin: 64px 0;
+  }
+  .figure {
+    margin: 36px 0;
+  }
+  .figure svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .caption {
+    font-family: var(--sans);
+    font-size: 12px;
+    color: var(--ink-mute);
+    text-align: left;
+    margin-top: 10px;
+    line-height: 1.5;
+  }
+  /* AQAL grid */
+  .aqal {
+    background: var(--surface);
+    border: 0.5px solid var(--rule);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .aqal-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+  .quad {
+    padding: 22px 24px;
+    border-bottom: 0.5px solid var(--rule);
+  }
+  .quad:nth-child(odd) { border-right: 0.5px solid var(--rule); }
+  .quad:nth-child(n+3) { border-bottom: none; }
+  .quad .tag {
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .quad h4 {
+    font-family: var(--serif);
+    font-size: 18px;
+    margin: 0 0 4px;
+    font-weight: 500;
+  }
+  .quad .weight {
+    font-family: var(--sans);
+    font-size: 12px;
+    color: var(--ink-mute);
+    margin-bottom: 14px;
+    font-style: italic;
+  }
+  .quad ul {
+    margin: 0;
+    padding-left: 16px;
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+  .quad li { margin-bottom: 4px; }
+  .quad.ul .tag { color: #7a2a1f; }
+  .quad.ur .tag { color: #8a6a16; }
+  .quad.ll .tag { color: #4a3d6e; }
+  .quad.lr .tag { color: #2c5a3e; }
+  .quad.ul { background: #faf3f1; }
+  .quad.ur { background: #faf5e9; }
+  .quad.ll { background: #f2f0f6; }
+  .quad.lr { background: #eef3ed; }
+  /* Stages chart container */
+  .chart-wrap {
+    background: var(--surface);
+    border: 0.5px solid var(--rule);
+    border-radius: 4px;
+    padding: 28px 24px 18px;
+  }
+  /* Shadow diagram styles inherit from SVG inline */
+  /* Fact check */
+  .fc {
+    background: var(--surface);
+    border: 0.5px solid var(--rule);
+    border-radius: 4px;
+    padding: 24px 26px;
+    margin: 22px 0;
+  }
+  .fc-head {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 14px;
+    padding-bottom: 14px;
+    border-bottom: 0.5px solid var(--rule);
+  }
+  .fc-claim {
+    font-family: var(--serif);
+    font-size: 17px;
+    line-height: 1.45;
+    font-style: italic;
+    color: var(--ink);
+  }
+  .fc-claim::before { content: '"'; color: var(--ink-mute); margin-right: 2px; }
+  .fc-claim::after { content: '"'; color: var(--ink-mute); margin-left: 2px; }
+  .fc-source {
+    font-family: var(--sans);
+    font-size: 12px;
+    color: var(--ink-mute);
+  }
+  .verdict {
+    display: inline-block;
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 3px;
+    font-weight: 500;
+  }
+  .v-misleading { background: var(--accent-soft); color: var(--accent); }
+  .v-contradicts { background: var(--accent-soft); color: var(--accent); }
+  .v-contested { background: var(--warn-soft); color: var(--warn); }
+  .v-unverifiable { background: #eee8e3; color: var(--ink-soft); }
+  .v-partly { background: var(--warn-soft); color: var(--warn); }
+  .v-plausible { background: var(--good-soft); color: var(--good); }
+  .fc-body {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+  .fc-body p { margin: 0 0 10px; }
+  .fc-body p:last-child { margin: 0; }
+  footer {
+    border-top: 0.5px solid var(--rule);
+    margin-top: 80px;
+    padding-top: 28px;
+    font-family: var(--sans);
+    font-size: 12px;
+    color: var(--ink-mute);
+    line-height: 1.6;
+  }
+  .watch-strip {
+    background: var(--surface);
+    border: 0.5px solid var(--rule);
+    border-radius: 4px;
+    padding: 16px 22px;
+    margin: 28px 0 0;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .watch-strip .label {
+    font-family: var(--sans);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 11px;
+    color: var(--ink-mute);
+  }
+  .watch-strip a {
+    font-family: var(--sans);
+    font-size: 14px;
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: 1px;
+  }
+  .watch-strip a:hover { opacity: 0.7; }
+  .fc-sources {
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 0.5px dashed var(--rule);
+    font-family: var(--sans);
+    font-size: 12px;
+    color: var(--ink-mute);
+    line-height: 1.55;
+  }
+  .fc-sources .label {
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-right: 8px;
+  }
+  .fc-sources a {
+    color: var(--ink-mute);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    text-decoration-color: var(--rule);
+  }
+  .fc-sources a:hover { color: var(--accent); text-decoration-color: var(--accent); }
+  .sources-section {
+    background: var(--surface);
+    border: 0.5px solid var(--rule);
+    border-radius: 4px;
+    padding: 26px 28px;
+    margin: 32px 0;
+    font-family: var(--sans);
+    font-size: 14px;
+    line-height: 1.7;
+  }
+  .sources-section h3 {
+    font-family: var(--sans);
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-mute);
+    margin: 22px 0 10px;
+    font-weight: 500;
+  }
+  .sources-section h3:first-child { margin-top: 0; }
+  .sources-section ul {
+    margin: 0 0 8px;
+    padding-left: 18px;
+    color: var(--ink-soft);
+  }
+  .sources-section li { margin-bottom: 6px; }
+  .sources-section a {
+    color: var(--ink-soft);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    text-decoration-color: var(--rule);
+  }
+  .sources-section a:hover { color: var(--accent); text-decoration-color: var(--accent); }
+  .toc {
+    background: var(--surface);
+    border: 0.5px solid var(--rule);
+    border-radius: 4px;
+    padding: 20px 26px;
+    margin: 36px 0 48px;
+    font-family: var(--sans);
+    font-size: 14px;
+  }
+  .toc .label {
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 11px;
+    color: var(--ink-mute);
+    margin-bottom: 10px;
+  }
+  .toc ol { margin: 0; padding-left: 22px; }
+  .toc li { margin: 4px 0; color: var(--ink-soft); }
+  .toc a { color: var(--ink); text-decoration: none; }
+  .toc a:hover { color: var(--accent); }
+  /* responsive */
+  @media (max-width: 640px) {
+    .container { padding: 40px 20px 64px; }
+    h1 { font-size: 30px; }
+    h2 { font-size: 22px; }
+    .aqal-grid { grid-template-columns: 1fr; }
+    .quad:nth-child(odd) { border-right: none; }
+    .quad { border-bottom: 0.5px solid var(--rule); }
+    .quad:last-child { border-bottom: none; }
+  }
+  @media print {
+    body { background: white; }
+    .container, .wide { max-width: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="container">
+    <div class="kicker">Integral content analysis · Seven-pass protocol</div>
+    <h1>The architecture of a wartime interview: Netanyahu on 60 Minutes</h1>
+    <p class="dek">A close reading of the May 10, 2026 60 Minutes interview between Major Garrett and Prime Minister Benjamin Netanyahu, using the AQAL quadrants, the STAGES developmental matrix, shadow analysis, rhetorical performance, and a section of independent fact-checks on the most load-bearing factual claims.</p>
+    <div class="meta">Source: CBS News · 60 Minutes / 60 Minutes Overtime · Aired May 10, 2026 · Interview length ≈ 78 minutes</div>
+    <div class="watch-strip">
+      <span class="label">Watch</span>
+      <a href="https://www.youtube.com/watch?v=gL2jFwZ16xo" target="_blank" rel="noopener">▶ The full interview on YouTube</a>
+      <span class="label" style="margin-left:auto">Read</span>
+      <a href="https://www.cbsnews.com/news/read-the-full-transcript-of-major-garretts-interview-with-israeli-prime-minister-benjamin-netanyahu-here/" target="_blank" rel="noopener">CBS News transcript</a>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+<div class="toc">
+  <div class="label">Contents</div>
+  <ol>
+    <li><a href="#frame">Framework note — what an integral content analysis is</a></li>
+    <li><a href="#source">Source card</a></li>
+    <li><a href="#pass1">Pass 1 — Quadrant audit (AQAL)</a></li>
+    <li><a href="#pass2">Pass 2 — Developmental analysis (STAGES)</a></li>
+    <li><a href="#pass3">Pass 3 — Lines and the cognitive–moral asymmetry</a></li>
+    <li><a href="#pass4">Pass 4 — Shadow and structural omissions</a></li>
+    <li><a href="#pass5">Pass 5 — Rhetorical performance</a></li>
+    <li><a href="#pass6">Pass 6 — Epistemic standards</a></li>
+    <li><a href="#factcheck">Fact-check — eight load-bearing claims</a></li>
+    <li><a href="#sources">Sources &amp; references</a></li>
+    <li><a href="#pass7">Pass 7 — Synthesis</a></li>
+  </ol>
+</div>
+
+<section id="frame">
+<h2><span class="num">A note before the passes</span>What an integral content analysis is, and isn't</h2>
+
+<p class="lead">An integral content analysis is a structured way of reading a piece of public speech with multiple lenses at once. It draws on Ken Wilber's AQAL framework, which divides any phenomenon into four quadrants (interior/exterior × individual/collective); on Terri O'Fallon's STAGES matrix, a developmental scale that tracks the structure of meaning-making rather than its content; on the line/level distinction in developmental psychology, which lets us notice that a single speaker can be sophisticated in one capacity and underdeveloped in another; and on the older tradition of shadow analysis, which asks what a frame structurally cannot hold.</p>
+
+<p>The point of an integral content analysis is not to decide whether a speaker is right or wrong. It's to map what their frame does and does not let them say. That's why this analysis includes both an integral pass (what's in the frame) and a separate fact-check section (whether specific claims hold up). The two tasks are different and both are needed. An argument can be factually accurate and developmentally narrow; another can be developmentally generous and factually wrong. Conflating the two questions is one of the things that makes public discourse worse.</p>
+
+<p>Where the analysis names a developmental level — "this passage operates from <strong>2.5 Conformist</strong>" — it isn't a verdict on the speaker as a person. Every speaker moves across levels in a single conversation, and the diagnostic value is in <em>which</em> topics pull <em>which</em> levels, not in assigning a single score. STAGES research is also probabilistic; a single text gives you the terrain, not the coordinates.</p>
+</section>
+
+<hr class="section">
+
+<section id="source">
+<h2><span class="num">Source card</span>What kind of speech act this is</h2>
+
+<p><strong>Type:</strong> Long-form American broadcast interview. CBS 60 Minutes / 60 Minutes Overtime. High production value, scripted intercut footage with extended one-on-one segments.</p>
+
+<p><strong>Participants:</strong> Major Garrett, chief Washington correspondent for CBS News, interviewing Benjamin Netanyahu, Prime Minister of Israel. Netanyahu's first US broadcast interview since the February 28, 2026 outbreak of war with Iran.</p>
+
+<p><strong>Date and context:</strong> Aired May 10, 2026. The war is in its tenth-to-eleventh week. The US and Israel launched Operation Epic Fury / strikes on Iran on February 28, 2026, killing Iranian Supreme Leader Ali Khamenei on the opening day. Mojtaba Khamenei was named the new Supreme Leader on March 8. The Strait of Hormuz remains blockaded, U.S. gas prices are near $5/gallon, thirteen American service members have been killed, and the Gaza Health Ministry's death toll stands above 71,000 — a figure the Israeli military quietly accepted as roughly accurate in January 2026.</p>
+
+<p><strong>Stated purpose:</strong> Status of the Iran war, regional strategy, October 7 accountability, the US-Israel financial relationship, and Netanyahu's response to declining American support for Israel.</p>
+
+<p><strong>Audience:</strong> Mainstream American broadcast viewers — an older, less digitally activated demographic than the social-media users Netanyahu repeatedly names as lost to him. He is explicitly speaking to the constituency he believes still listens.</p>
+
+<div class="note">
+<div class="label">Calibration</div>
+This is performed argument. Netanyahu is playing for three audiences simultaneously: the American broadcast viewer, the strategic-historical record, and Donald Trump. Major Garrett applies real pressure on roughly a third of the major claims (the February 11 White House meeting, the assessed-as-minimal risk language, the declining US support question) and lets the others pass with sympathetic follow-ups. That interview shape is structural and shapes what becomes thinkable inside it.
+</div>
+</section>
+
+<hr class="section">
+
+<section id="pass1">
+<h2><span class="num">Pass 1</span>Quadrant audit — where the argument lives</h2>
+
+<p>Netanyahu's case is weighted heavily toward two quadrants and structurally light in a third. The map below shows the distribution.</p>
+
+<div class="figure">
+<div class="aqal">
+<div class="aqal-grid">
+
+<div class="quad ul">
+<div class="tag">UL · Interior individual</div>
+<h4>Will, fanaticism, resolve</h4>
+<div class="weight">Dominant register</div>
+<ul>
+<li>"Iran is a fanatic regime" — repeated as load-bearing premise</li>
+<li>"Free societies have to have the will"</li>
+<li>Anti-semitism explained as rooted in "jealousy"</li>
+<li>Trump's first words to him in 2016, in 2024</li>
+<li>Personal grief: brother, friend dying in his arms</li>
+</ul>
+</div>
+
+<div class="quad ur">
+<div class="tag">UR · Exterior individual</div>
+<h4>Tactical specificity, weak audit trail</h4>
+<div class="weight">High volume, low verifiability</div>
+<ul>
+<li>"12 nuclear scientists in first minute" of Rising Lion</li>
+<li>"Eight more scientists" in the current operation</li>
+<li>"90%+ of Hezbollah missiles destroyed"</li>
+<li>The pager operation — "no collateral damage"</li>
+<li>"Lowest civilian ratio in modern urban warfare"</li>
+</ul>
+</div>
+
+<div class="quad ll">
+<div class="tag">LL · Interior collective</div>
+<h4>Civilizational frame</h4>
+<div class="weight">Dominant register</div>
+<ul>
+<li>"Civilization vs barbarians" — recurrent</li>
+<li>Will Durant, Churchill invoked as authorities</li>
+<li>"3,500 years of Jewish history"</li>
+<li>Anti-semitism as historical "ebb and flow"</li>
+<li>Western Europe has "lost its will"</li>
+</ul>
+</div>
+
+<div class="quad lr">
+<div class="tag">LR · Exterior collective</div>
+<h4>Strong on systems Netanyahu wants seen</h4>
+<div class="weight">Selective in scope</div>
+<ul>
+<li>Hormuz blockade as economic lever</li>
+<li>Abraham Accords expansion logic</li>
+<li>Aid → partnership restructuring (10-year glidepath)</li>
+<li>Social-media bot farms (alleged Pakistani origin)</li>
+<li>Proxy network as "scaffolding"</li>
+</ul>
+</div>
+
+</div>
+</div>
+<p class="caption">The two interior quadrants (UL, LL) carry the most rhetorical weight. The two exterior quadrants are present but used differently: UR is dense with specific numerical claims that <em>sound</em> auditable but aren't actually offered for audit, and LR is sharp on the systems Netanyahu wants to highlight and silent on those he doesn't.</p>
+</div>
+
+<p>The imbalance is itself the analysis. Claims about <em>will</em> and <em>civilization</em> are the hardest to compel — there's no number that settles whether a regime is fanatical or whether a society has lost resolve. They're also the claims where rhetorical authority does the heaviest lifting. Putting the load-bearing work in the interior quadrants is a sound persuasive strategy. It doesn't make the argument wrong; it makes the argument <em>uncontestable</em> in a particular way.</p>
+
+<p>The most consequential structural absence is the <strong>interior collective of the adversary</strong>. Lower-Left perspective-taking — what Iranians, Lebanese, or Palestinians understand themselves to be doing from inside their own frame — appears nowhere except collapsed into "fanatics" or "terrorized civilians waiting to be liberated." Pluralist developmental work begins with the capacity to hold an adversary's LL with fidelity even while opposing them politically. That capacity is not exercised in this interview. The Iranian-people-versus-regime move ("they name streets after me, BB Jun") is the closest he gets, and even that frames Iranians as silent allies rather than as a collective with their own interior life.</p>
+
+<p>Major Garrett, for his part, pushes hardest on UR (the New York Times report on the February 11 White House meeting, the "assessed as minimal" risk language) and lightly on LL (the social-media question, the Christian community defacement question). He does not push on the adversary's LL at all. That shape is structural and shapes what becomes thinkable inside the interview.</p>
+</section>
+
+<hr class="section">
+
+<section id="pass2">
+<h2><span class="num">Pass 2</span>Developmental analysis — STAGES by topic</h2>
+
+<p>Netanyahu operates from multiple developmental tiers within a single interview, and the tier shifts depending on the topic. This is normal — every speaker moves across levels — but the <em>pattern</em> of where the level rises and where it drops is diagnostic. Below, the levels engaged by topic, using O'Fallon's STAGES matrix.</p>
+
+<div class="note">
+<div class="label">STAGES tier reference</div>
+The model's third tier — <strong>Subtle</strong> — spans 3.0 Expert (subtle/individual/receptive), 3.5 Achiever (subtle/individual/active), 4.0 Pluralist (subtle/collective/reciprocal), and 4.5 Strategist (subtle/collective/interpenetrative). The <strong>Concrete</strong> tier below it spans 1.0–2.5, with 2.5 Conformist being the final stage of concrete-collective principle-based reasoning before the shift into subtle objects. Each tier shift represents a substantial reorganization of meaning-making, not a minor upgrade.
+</div>
+
+<div class="figure">
+<div class="chart-wrap">
+<div style="position: relative; width: 100%; height: 460px;">
+<canvas id="stagesChart" role="img" aria-label="Horizontal bar chart of developmental tier engaged by topic across the Netanyahu interview. Geopolitical strategy reaches 4.5 Strategist. Aid-to-partnership pivot reaches 4.0-4.5. Military operations sit at 3.5 Achiever. Civilizational narrative, anti-semitism explanation, and Christian community discussion drop to 2.5 Conformist. Adversary interior life drops to 1.5 Egocentric."></canvas>
+</div>
+</div>
+<p class="caption">Topic-by-topic developmental level engaged, using O'Fallon's STAGES matrix. The chart is approximate, not a clinical score.</p>
+</div>
+
+<h3>What the pattern shows</h3>
+
+<p>The <strong>aid-to-partnership pivot</strong> looked, on first read, like the most developmentally sophisticated content in the interview — real systems perspective-taking ("draw down the American financial support... go from aid to partnership"), recognition of structural costs on both sides, a phased ten-year transition with joint-investment scaffolding. Pluralist-into-Strategist work, 4.0 cresting into 4.5. That read is too generous, and the corrective is worth naming because it surfaces the same pattern operating across the whole interview.</p>
+
+<p>The pivot is <em>reactive</em>, not generative. Netanyahu names the political weather explicitly in the same interview: 60% of US adults hold an unfavorable view of Israel, up nearly 20 points in four years, per a Pew survey CBS cites alongside the segment. He acknowledges Israel is "losing badly" on social media and that American support has slipped. In that environment, "I want to draw down American financial aid to zero" does four things at once. It defuses the most concrete material grievance Americans have about Israel — the $3.8B/year figure — at a moment when MAGA-aligned anti-aid sentiment and progressive anti-occupation sentiment are converging on the same fiscal question from opposite directions. It repositions Israel as a partner of strength rather than a dependent client, restoring pride for a domestic Israeli audience watching its government become unpopular abroad. It preempts the political risk that a future Congress might cut aid anyway — better to volunteer than to be defunded. And it lets Netanyahu claim credit for what is likely coming whether he wants it or not.</p>
+
+<p>The "their jaws drop" detail — Netanyahu's own advisors reading the proposal as risky — is the giveaway. Genuine Pluralist work doesn't usually surprise the room it's in; tactical pivots designed to <em>read</em> as generosity do. Netanyahu himself notes the historical precedent: he made a comparable move in 1996, drawing down US civilian aid in a similar political moment. The current move is a <em>replay</em> of a known tactic in new conditions, not a fresh insight. The cleaner read: <strong>3.5 Achiever political positioning, rhetorically packaged to look 4.0+.</strong></p>
+
+<p>This is the same pattern that runs through the rest of the interview. The war runs at 4.5 Strategist and the justification runs at 2.5 Conformist. The concession runs at 3.5 Achiever and the rhetoric around it runs at 4.0+. Netanyahu is operating across tiers strategically, choosing each register for what it does in the room. The aid pivot doesn't break the pattern; it confirms it.</p>
+
+<div class="figure">
+<div class="chart-wrap">
+<div style="position: relative; width: 100%; height: 320px;">
+<canvas id="opinionChart" role="img" aria-label="Line chart showing US adult unfavorable views of Israel from 2013 to 2025, rising from approximately 37% in 2013 to 60% in 2025, with sharp acceleration after October 2023."></canvas>
+</div>
+</div>
+<p class="caption">US adult unfavorable views of Israel, per Pew Research surveys. The acceleration after October 2023 — and the 20-point shift in four years — is the political weather Netanyahu is responding to when he proposes drawing down aid. Approximate values based on reported Pew trend data.</p>
+</div>
+
+<p>The <strong>civilizational narrative and the anti-semitism explanation</strong> drop sharply into 2.5 Conformist. The frame is mythic-historical, in-group/out-group binary, and structured by what O'Fallon calls concrete-collective interpenetrative meaning-making — standing on principles, identifying with the trans-historical community. There is nothing pathological about operating at this tier; it's where most political mobilization actually happens. But it is a different developmental gear than the geopolitical strategy he runs minutes earlier. The Will Durant invocation does specific work: it imports a Conformist conception of "civilization defends itself or dies" while sounding scholarly.</p>
+
+<p>The <strong>adversary interior is the lowest point on the chart</strong>. Iran, Hamas, and Hezbollah are described entirely from outside, in terms of what they want and what they do, in a hostile-actor model. There is no point in the interview where Netanyahu inhabits an Iranian leader's logic from inside that leader's frame, even rhetorically. This is not a small thing developmentally. The capacity to model an adversary's interior with fidelity is the prerequisite for both Pluralist (4.0) negotiation and Strategist (4.5) systems-level conflict transformation. Its absence here is what structurally locks the conflict into the form Netanyahu describes — and the reciprocity should be named: nothing about the Iranian regime suggests it is doing the opposite work.</p>
+
+<div class="pull">A leader can run their war at 4.5 and legitimate it at 2.5 without contradiction. The decoupling is what makes the frame so durable, and what standard critique on either side tends to miss.</div>
+</section>
+
+<hr class="section">
+
+<section id="pass3">
+<h2><span class="num">Pass 3</span>Lines — cognitive sophistication, moral conventionality</h2>
+
+<p>Inside the developmental analysis, certain capacities (or "lines") stand out for being unusually uneven. The line concept matters because someone can be highly developed cognitively while being conventionally developed morally, or vice versa — and the asymmetry has political consequences.</p>
+
+<p>Netanyahu's <strong>cognitive/strategic line</strong> is high. He tracks multiple actors, anticipates second- and third-order effects (the Hormuz reasoning is genuinely strategic), and demonstrates meta-awareness of how information environments work. His <strong>interpersonal line</strong> is sophisticated in the in-group direction — the calibrated handling of Trump, the readable appeals to American audience — and underdeveloped in the out-group direction. His <strong>moral line</strong> is anchored at conventional with mythic-historical scaffolding — duty to the Jewish people, the Almighty's chance, the soldier-died-in-my-arms register — and does not operate at a post-conventional level where competing moral claims from inside opposing frames are weighed. His <strong>self-identity line</strong> is unusually integrated; the personal grief, the prime minister, the historical figure, the architect of the Iran strikes all fit one story without visible seam.</p>
+
+<p>The line-split that matters most: <strong>strategic sophistication without moral pluralism produces a leader who can win wars and lose the future they're being fought for.</strong> That's not a partisan observation; it's the structural risk of cognitive/moral asymmetry at this scale. The Wall Street Journal anxiety Major Garrett raises — that Gulf states worry an unfinished Iran could be <em>more</em> dangerous post-conflict, and that Israeli strategic dominance is itself a regional concern — is exactly the symptom Pluralist capacity would address. Netanyahu's response ("I'm hearing different things") deflects rather than engages.</p>
+</section>
+
+<hr class="section">
+
+<section id="pass4">
+<h2><span class="num">Pass 4</span>Shadow — what the frame cannot hold</h2>
+
+<p>Shadow in integral content analysis is not the same as "what wasn't mentioned." It's what would have changed the argument if mentioned. The diagram below lays out what the frame holds inside it, and what falls structurally outside.</p>
+
+<div class="figure">
+<svg viewBox="0 0 680 580" xmlns="http://www.w3.org/2000/svg" role="img">
+<title>Shadow and omissions map</title>
+<desc>An ellipse showing what is centered in the interview's frame, surrounded by eight rectangles labeling what is structurally absent or deflected.</desc>
+<text x="340" y="32" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Inter, sans-serif" font-size="15" font-weight="500" fill="#1f1d1a">What the frame holds, and what it can't</text>
+<text x="340" y="52" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Inter, sans-serif" font-size="12" fill="#76726b">Inside = repeatedly named. Outside = structurally absent or deflected.</text>
+
+<ellipse cx="340" cy="300" rx="180" ry="160" fill="#eef3ed" stroke="#2c5a3e" stroke-width="0.5"/>
+<text x="340" y="222" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Inter, sans-serif" font-size="14" font-weight="500" fill="#2c5a3e">In frame</text>
+<text x="340" y="250" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Inter, sans-serif" font-size="12" fill="#2c5a3e">Iranian regime threat</text>
+<text x="340" y="268" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Inter, sans-serif" font-size="12" fill="#2c5a3e">Israeli civilian risk</text>
+<text x="340" y="286" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Inter, sans-serif" font-size="12" fill="#2c5a3e">Tactical precision claims</text>
+<text x="340" y="304" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Inter, sans-serif" font-size="12" fill="#2c5a3e">Trump partnership</text>
+<text x="340" y="322" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Inter, sans-serif" font-size="12" fill="#2c5a3e">Abraham Accords expansion</text>
+<text x="340" y="340" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Inter, sans-serif" font-size="12" fill="#2c5a3e">Anti-semitism (historical)</text>
+<text x="340" y="358" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Inter, sans-serif" font-size="12" fill="#2c5a3e">Social media as battlefield</text>
+<text x="340" y="376" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Inter, sans-serif" font-size="12" fill="#2c5a3e">Personal grief and family loss</text>
+
+<g>
+<rect x="40" y="92" width="200" height="68" rx="4" fill="#faece8" stroke="#7a2a1f" stroke-width="0.5"/>
+<text x="140" y="112" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Inter, sans-serif" font-size="13" font-weight="500" fill="#7a2a1f">Palestinian civilian toll</text>
+<text x="140" y="130" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Inter, sans-serif" font-size="11" fill="#7a2a1f">71,000+ named in GHM list,</text>
+<text x="140" y="146" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Inter, sans-serif" font-size="11" fill="#7a2a1f">no figure entered the interview</text>
+
+<rect x="440" y="92" width="200" height="68" rx="4" fill="#faece8" stroke="#7a2a1f" stroke-width="0.5"/>
+<text x="540" y="112" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Inter, sans-serif" font-size="13" font-weight="500" fill="#7a2a1f">Hostages still held</text>
+<text x="540" y="130" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Inter, sans-serif" font-size="11" fill="#7a2a1f">Not raised, either as a status</text>
+<text x="540" y="146" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Inter, sans-serif" font-size="11" fill="#7a2a1f">update or moral frame</text>
+
+<rect x="40" y="180" width="200" height="68" rx="4" fill="#faece8" stroke="#7a2a1f" stroke-width="0.5"/>
+<text x="140" y="200" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Inter, sans-serif" font-size="13" font-weight="500" fill="#7a2a1f">Settler movement</text>
+<text x="140" y="218" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Inter, sans-serif" font-size="11" fill="#7a2a1f">West Bank governance,</text>
+<text x="140" y="234" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Inter, sans-serif" font-size="11" fill="#7a2a1f">violence — entirely absent</text>
+
+<rect x="440" y="180" width="200" height="68" rx="4" fill="#faece8" stroke="#7a2a1f" stroke-width="0.5"/>
+<text x="540" y="200" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Inter, sans-serif" font-size="13" font-weight="500" fill="#7a2a1f">Coalition partners</text>
+<text x="540" y="218" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Inter, sans-serif" font-size="11" fill="#7a2a1f">No mention of the far-right</text>
+<text x="540" y="234" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Inter, sans-serif" font-size="11" fill="#7a2a1f">cabinet members or their roles</text>
+
+<rect x="40" y="352" width="200" height="68" rx="4" fill="#faece8" stroke="#7a2a1f" stroke-width="0.5"/>
+<text x="140" y="372" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Inter, sans-serif" font-size="13" font-weight="500" fill="#7a2a1f">Adversary interior life</text>
+<text x="140" y="390" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Inter, sans-serif" font-size="11" fill="#7a2a1f">Iranian, Lebanese, Gazan civilians</text>
+<text x="140" y="406" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Inter, sans-serif" font-size="11" fill="#7a2a1f">as subjects, not objects</text>
+
+<rect x="440" y="352" width="200" height="68" rx="4" fill="#faece8" stroke="#7a2a1f" stroke-width="0.5"/>
+<text x="540" y="372" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Inter, sans-serif" font-size="13" font-weight="500" fill="#7a2a1f">Sourcing for stat claims</text>
+<text x="540" y="390" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Inter, sans-serif" font-size="11" fill="#7a2a1f">"Lowest civilian ratio," "90%"</text>
+<text x="540" y="406" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Inter, sans-serif" font-size="11" fill="#7a2a1f">offered without methodology</text>
+
+<rect x="40" y="440" width="200" height="68" rx="4" fill="#faece8" stroke="#7a2a1f" stroke-width="0.5"/>
+<text x="140" y="460" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Inter, sans-serif" font-size="13" font-weight="500" fill="#7a2a1f">Asymmetry of power</text>
+<text x="140" y="478" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Inter, sans-serif" font-size="11" fill="#7a2a1f">"Tiny country" frame obscures</text>
+<text x="140" y="494" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Inter, sans-serif" font-size="11" fill="#7a2a1f">declared regional dominance</text>
+
+<rect x="440" y="440" width="200" height="68" rx="4" fill="#faece8" stroke="#7a2a1f" stroke-width="0.5"/>
+<text x="540" y="460" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Inter, sans-serif" font-size="13" font-weight="500" fill="#7a2a1f">Personal accountability</text>
+<text x="540" y="478" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Inter, sans-serif" font-size="11" fill="#7a2a1f">Oct 7 deferred to a future</text>
+<text x="540" y="494" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Inter, sans-serif" font-size="11" fill="#7a2a1f">bipartisan commission</text>
+</g>
+
+<text x="340" y="558" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, Inter, sans-serif" font-size="11" font-style="italic" fill="#76726b">Each outside item is one whose honest naming would force a different conclusion.</text>
+</svg>
+<p class="caption">The shadow map. What's central in the frame, and what falls outside it in ways that load-bear on the rhetoric.</p>
+</div>
+
+<p>Three of these are worth lingering on because they aren't merely absent — they're structurally absent, meaning the argument's coherence depends on the absence:</p>
+
+<p>The <strong>Palestinian civilian death count never enters the interview as a number.</strong> Netanyahu uses the phrase "every civilian death is a tragedy" once, then pivots to comparative framing ("the lowest ratio in modern urban warfare"). The pivot is the move: it converts an absolute moral claim into a relative tactical one, and the relative claim is offered without sourcing. By January 2026 the Israeli military itself accepted that the Gaza Health Ministry figure of roughly 70,000 dead was substantially accurate; that number appears nowhere in the interview. The rhetorical structure of "tragedy + comparative ratio" is doing the work that an absolute number would disrupt.</p>
+
+<p><strong>Coalition partners are invisible.</strong> Itamar Ben-Gvir, Bezalel Smotrich, and the far-right cabinet members whose political weight has shaped settler policy, judicial overhaul, and prosecution of the war appear nowhere. The claim "I was the most restrained prime minister in Israel's history before October 7th" is constructible only when those names are absent. The frame requires the absence, because their presence would force a different question: are you describing the state of Israel or the policies of a specific coalition?</p>
+
+<p><strong>Own accountability is routed to procedure.</strong> Asked directly about responsibility for October 7, Netanyahu's response is to propose a bipartisan commission "like the one created after 9/11." This is procedurally reasonable and does specific rhetorical work: it converts a personal moral question into an institutional one and locates the answer in the future. The Israeli public has been asking for this commission for two years; the prime minister's office has been the principal obstacle. None of that context enters the interview.</p>
+</section>
+
+<hr class="section">
+
+<section id="pass5">
+<h2><span class="num">Pass 5</span>Rhetorical performance — eight recurrent moves</h2>
+
+<p>Independent of content, what is the interview <em>doing</em> as a performance? Eight rhetorical moves recur with enough frequency that they function as the load-bearing architecture.</p>
+
+<h3>1. The dual-scale frame</h3>
+<p>Israel is simultaneously a "tiny country" of 10 million and "a gigantic country" with the talent to "change the world." Both can be empirically true. The rhetorical work is in the ability to switch registers within a single answer — David when describing threats, Goliath when describing capability. The switch is invisible inside the sentence; it's visible only when you map the full interview.</p>
+
+<h3>2. The personal-to-civilizational pivot</h3>
+<p>When pressed on policy or tactics, Netanyahu moves to a personal-loss anchor (the friend dying in his arms, his brother killed rescuing hostages, his own wounds) and then expands outward to civilizational stakes (3,500 years of Jewish history, "not on my watch"). This is rhetorically powerful and emotionally authentic — and it also makes narrower factual challenges feel rude. Conversational armor.</p>
+
+<h3>3. Authority chains</h3>
+<p>Will Durant, Churchill, Trump's first words to him, the British ambassador's leaked quote — each citation imports legitimacy from a different audience. Will Durant signals to the intellectual right, Churchill to the historically literate, Trump to the current US political alignment, the British ambassador to the establishment center. The chain is too well-distributed to be accidental.</p>
+
+<h3>4. Strategic ambiguity, openly declared</h3>
+<p>Twice in the first ten minutes Netanyahu announces he will dodge the question: "You're going to ask me these questions. I'm going to dodge them. So you can ask me that second time, third time, and I'll dodge it." Unusually transparent meta-commentary that functions as pre-permission — by announcing the dodges, he frames dodging as competence rather than evasion.</p>
+
+<h3>5. Counter-question as deflection</h3>
+<p>"Where do you live? In Bethesda?" The Hezbollah-near-DC analogy isn't only illustration; it relocates the burden of empathy from Netanyahu to the interviewer. A clean technique worth marking.</p>
+
+<h3>6. Performative humility with reset</h3>
+<p>"I'm not a king, kings don't have to be elected." This lands as humility. It immediately precedes a vigorous re-assertion of his electoral mandate and popularity. Humility opens a register; the reset closes it. Both moves serve the same purpose.</p>
+
+<h3>7. Anti-semitism as historical inevitability</h3>
+<p>The most consequential move in the second half. By framing the decline in US support as a recurrence of historical anti-semitism — "ebb and flow," "comes back even in the best of societies" — Netanyahu pre-empts the alternative explanation that specific Israeli policies have contributed. Major Garrett presses this exact point ("Republicans and Democrats had a default proposition favorable to Israel. That's not true anymore... that has to be reflective of something else"), and Netanyahu folds the question back into the larger frame: yes, but the larger frame is anti-semitism. This is a closed loop. Any criticism is potentially anti-semitism; the existence of criticism is evidence of anti-semitism.</p>
+
+<h3>8. Self-correction as final credibility deposit</h3>
+<p>At the end, Netanyahu acknowledges "of course we've made mistakes" and "armies sometimes miss and civilians die." This is real and worth crediting. It is also strategically placed at the end, after the harder pushback has subsided, where it functions as the last taste in the viewer's mouth.</p>
+</section>
+
+<hr class="section">
+
+<section id="pass6">
+<h2><span class="num">Pass 6</span>Epistemic standards</h2>
+
+<p>Several major factual claims in the interview are unverifiable from the transcript alone, and are worth flagging not because they're necessarily false — some may be true — but because the analytical posture should account for what's been <em>demonstrated</em> versus what's been <em>asserted</em>.</p>
+
+<p>The pattern that matters more than any single claim: <strong>high-specificity assertions are made in the UR quadrant</strong> (numbers, percentages, named operations) where they sound auditable, while the actual epistemic infrastructure for auditing them — sourcing, methodology, error bars — is consistently absent. The "lowest civilian-to-combatant ratio in modern urban warfare," the "12 nuclear scientists in the first minute," the "90%+ of Hezbollah missiles," the "Pakistan basement bot farm" — each lands as fact and each lacks the citations a fact would carry. The fact-check section that follows takes these claims seriously enough to test them against independent reporting.</p>
+</section>
+
+<hr class="section">
+
+<section id="factcheck">
+<h2><span class="num">Fact-check</span>Eight load-bearing claims</h2>
+
+<p>What follows is a check of the most consequential factual assertions in the interview against independent reporting, intelligence assessments, and historical data. Verdicts use a five-step scale: <em>plausible</em>, <em>partly true</em>, <em>contested</em>, <em>misleading</em>, <em>contradicts US intelligence assessment</em>, and <em>unverifiable</em>. Where a claim is true but doing rhetorical work the wording obscures, that's noted.</p>
+
+<div class="figure">
+<div class="chart-wrap">
+<div style="position: relative; width: 100%; height: 220px;">
+<canvas id="verdictChart" role="img" aria-label="Horizontal bar chart showing distribution of fact-check verdicts across nine claims. One plausible, two partly true, one contested, two misleading, one contradicts US intelligence, and two unverifiable."></canvas>
+</div>
+</div>
+<p class="caption">Distribution of verdicts across the nine claims fact-checked below. The two most consequential claims — Iran's nuclear timeline and Gaza's civilian-to-combatant ratio — fall into the "contradicts US intelligence" and "misleading" buckets, respectively.</p>
+</div>
+
+<div class="fc">
+<div class="fc-head">
+<div class="fc-claim">If we hadn't done the two military operations, they'd have a bomb within now or within a month or two.</div>
+<div class="fc-source">On Iran's nuclear timeline absent the strikes</div>
+<span class="verdict v-contradicts">Contradicts US intelligence</span>
+</div>
+<div class="fc-body">
+<p>The US intelligence community's 2025 public assessment stated explicitly that "Iran is not building a nuclear weapon" and that Supreme Leader Khamenei had not reauthorized the weapons program suspended in 2003. Director of National Intelligence Tulsi Gabbard testified on March 18, 2026 that Iran was not on the verge of acquiring a nuclear weapon, directly contradicting the Trump administration's "two weeks" framing used to justify the February 28 war. IAEA Director Rafael Grossi stated on March 4, 2026 that the agency "never had information indicating that there was a structured systematic [Iranian] program to build or construct a nuclear weapon."</p>
+<p>Pre-strike, US intelligence placed Iran's <em>weaponization</em> timeline at roughly nine to twelve months <em>even if Iran chose to weaponize</em> — not weeks or one to two months. The "month or two" claim collapses the distinction between (a) producing weapons-grade uranium, which Iran could have done relatively quickly, and (b) actually assembling a working nuclear weapon, which all serious assessments placed at a substantially longer horizon.</p>
+
+<div class="figure">
+<div class="chart-wrap" style="background: var(--bg);">
+<div style="position: relative; width: 100%; height: 280px;">
+<canvas id="nuclearChart" role="img" aria-label="Bar chart comparing different sources' estimates of months until Iran could potentially produce a nuclear weapon. Trump administration claimed 0.5 months. Netanyahu claimed 1 to 2 months. US Intelligence Community pre-strike assessment was 9 to 12 months. FDD post-strike estimate was 30 months or more. DNI Tulsi Gabbard testified Iran was not building a weapon."></canvas>
+</div>
+</div>
+<p class="caption">How different sources estimated the time until Iran could potentially produce a nuclear weapon. The political claims (red) cluster at one end; the intelligence community's actual assessment (amber) sits an order of magnitude further out; post-strike assessments (green) place the timeline further still or describe no active program at all.</p>
+</div>
+<div class="fc-sources">
+<span class="label">Sources</span>
+<a href="https://time.com/article/2026/03/18/tulsi-gabbard-iran-nuclear-trump/" target="_blank" rel="noopener">Time, on DNI Gabbard's Senate testimony</a> ·
+<a href="https://www.congress.gov/crs-product/IF12106" target="_blank" rel="noopener">Congressional Research Service, "Iran and Nuclear Weapons Production"</a> ·
+<a href="https://politicalwire.com/2026/05/05/irans-nuclear-timeline-remains-unchanged/" target="_blank" rel="noopener">Reuters/Political Wire, May 2026 IC assessment</a> ·
+<a href="https://www.fdd.org/analysis/2026/05/06/oversights-mar-low-end-estimate-of-tehrans-nuclear-weapons-timeline/" target="_blank" rel="noopener">FDD analysis on the 9–12 month timeline</a>
+</div>
+</div>
+</div>
+
+<div class="fc">
+<div class="fc-head">
+<div class="fc-claim">The proportion of civilian casualties, non-combatants to combatants, is one of the lowest in the history of modern urban warfare.</div>
+<div class="fc-source">On Gaza civilian-to-combatant ratio</div>
+<span class="verdict v-misleading">Misleading</span>
+</div>
+<div class="fc-body">
+<p>The IDF's own claim is a ratio of approximately 1.4:1 civilians to combatants. Independent analysis tells a different story. A study by Action on Armed Violence in January 2026, using methods that correct for bias in how military-age men are categorized, found a civilian-to-combatant ratio of approximately 8:1 for the dead recorded by the Gaza Health Ministry, and approximately 5:1 when factoring in deaths in areas under direct Israeli control. A classified Israeli military internal report cited by The Guardian in August 2025 implied approximately 83% of those killed in Gaza were civilians — a ratio of roughly 5:1 — a figure the IDF rejected but did not refute with alternative methodology.</p>
+<p>The Gaza Health Ministry's casualty list, which the IDF privately accepted as broadly accurate as of January 2026, recorded over 70,000 named dead. By contrast, a classified IDF database from May 2025 listed approximately 8,900 named Hamas and PIJ fighters believed killed — about 17% of the then-total of 53,000 deaths. The "one of the lowest" framing depends on counting all military-age male deaths as combatants, which independent analysts including UN agencies and academic researchers reject. By any defensible methodology, the Gaza ratio is at the high end of urban warfare civilian harm in recent decades, not the low end.</p>
+
+<div class="figure">
+<div class="chart-wrap" style="background: var(--bg);">
+<div style="position: relative; width: 100%; height: 380px;">
+<canvas id="gazaChart" role="img" aria-label="Horizontal bar chart comparing civilian percentage of total deaths across recent urban conflicts. Gaza with IDF's claimed ratio is 58%. Mosul approximately 75%. Aleppo approximately 75%. Iraq War 77%. Second Chechen War 81%. Gaza per Israeli internal report 83%. Gaza per Action on Armed Violence 89%. First Chechen War 90%."></canvas>
+</div>
+</div>
+<p class="caption">Civilian percentage of total deaths across recent urban conflicts, ranked low to high. Bars in red are Gaza estimates from three different methodologies (IDF claim, Israeli internal assessment cited by The Guardian, and AOAV's independent analysis). Even by Israel's own classified estimate, Gaza sits in the upper range of urban warfare civilian harm. By independent analysis it is at the very top. Comparison figures from Wikipedia's civilian casualty ratio article; ranges where estimates vary widely are shown with a midpoint.</p>
+</div>
+<div class="fc-sources">
+<span class="label">Sources</span>
+<a href="https://aoav.org.uk/2026/why-israeli-claims-of-low-civilian-to-combatant-harm-in-gaza-do-not-hold-up/" target="_blank" rel="noopener">Action on Armed Violence analysis</a> ·
+<a href="https://en.wikipedia.org/wiki/Civilian_casualty_ratio" target="_blank" rel="noopener">Civilian casualty ratio comparison data</a> ·
+<a href="https://en.wikipedia.org/wiki/Casualties_of_the_Gaza_war" target="_blank" rel="noopener">Casualties of the Gaza war</a> ·
+<a href="https://www.timesofisrael.com/idf-believes-70000-gazans-killed-in-war-as-claimed-by-hamas/" target="_blank" rel="noopener">Times of Israel, IDF accepting GHM figures</a>
+</div>
+</div>
+</div>
+
+<div class="fc">
+<div class="fc-head">
+<div class="fc-claim">We destroyed more than 90% of [Hezbollah's missiles].</div>
+<div class="fc-source">On the degradation of Hezbollah's arsenal</div>
+<span class="verdict v-contested">Contested</span>
+</div>
+<div class="fc-body">
+<p>By the November 2024 ceasefire, IDF estimates put 70-80% of Hezbollah's rocket arsenal as destroyed. The Jerusalem Post reported in March 2026 that the IDF had updated the figure to 85-90% after further strikes. So "90%+" is at the upper bound of Israel's own estimates.</p>
+<p>The complication: in April 2026, the head of Israel's Northern Command publicly acknowledged the IDF had <em>overestimated</em> the damage done to Hezbollah's offensive capabilities during the 2024 ground operation, as evidenced by Hezbollah's ability to fire hundreds of rockets per day once it re-entered the war in March 2026. Hezbollah's pre-war arsenal of approximately 150,000 rockets is a credible figure widely cited, but the assessment of how much of it remains operational has been visibly revised downward in capability terms.</p>
+<div class="fc-sources">
+<span class="label">Sources</span>
+<a href="https://www.jpost.com/israel-news/defense-news/article-890003" target="_blank" rel="noopener">Jerusalem Post on 85–90% IDF estimate</a> ·
+<a href="https://www.timesofisrael.com/idf-northern-command-chief-admits-israel-overestimated-damage-to-hezbollah-after-2024-war/" target="_blank" rel="noopener">Times of Israel, IDF Northern Command chief admission</a> ·
+<a href="https://www.timesofisrael.com/rocket-barrages-underscore-remaining-potency-of-hezbollahs-gutted-arsenal/" target="_blank" rel="noopener">Times of Israel on remaining arsenal potency</a>
+</div>
+</div>
+</div>
+
+<div class="fc">
+<div class="fc-head">
+<div class="fc-claim">They've just developed a missile to reach Diego Garcia. That's 2,600 — 2,400 miles. To reach the United States, a little over 6,000 miles.</div>
+<div class="fc-source">On Iran's missile range and ICBM capability</div>
+<span class="verdict v-partly">Partly true</span>
+</div>
+<div class="fc-body">
+<p>On March 20, 2026, Iran launched two ballistic missiles at the joint US-UK Diego Garcia base, roughly 2,500 miles (4,000 km) from Iran. Neither hit the base — one failed in flight, the other was intercepted. The Israeli military characterized the weapons as two-stage intermediate-range ballistic missiles with a range of about 2,500 miles, likely derived from Iran's space-launch vehicle program rather than the legacy Khorramshahr family. So the underlying capability claim is real and reflects a genuine extension of Iran's known reach.</p>
+<p>The "reach the United States" extrapolation is not supported by current intelligence. CNN reporting in March 2026 cited US sources stating there was "no intelligence to suggest that Iran is pursuing an intercontinental ballistic missile program to hit the US at this time." Analysts note Iran <em>could</em> credibly develop ICBM capability over time by leveraging existing space-launch infrastructure — but this is a future risk, not a present capability. Netanyahu collapses possibility into present tense.</p>
+<div class="fc-sources">
+<span class="label">Sources</span>
+<a href="https://www.sipri.org/commentary/topical-backgrounder/2026/what-does-reported-attack-diego-garcia-tell-us-about-irans-missile-capabilities-qa-dr-markus" target="_blank" rel="noopener">SIPRI on Iran's missile capabilities</a> ·
+<a href="https://www.cnn.com/2026/03/21/politics/iran-missiles-diego-garcia" target="_blank" rel="noopener">CNN on Diego Garcia attack and ICBM intelligence</a> ·
+<a href="https://www.hudson.org/defense-strategy/irans-attempted-strike-diego-garcia-emerging-strategic-threat-can-kasapoglu" target="_blank" rel="noopener">Hudson Institute strategic analysis</a> ·
+<a href="https://theconversation.com/how-far-can-irans-ballistic-missiles-reach-a-defense-expert-explains-how-the-missiles-work-and-what-iran-can-and-cant-hit-279072" target="_blank" rel="noopener">The Conversation, ballistic missile range explainer</a>
+</div>
+</div>
+</div>
+
+<div class="fc">
+<div class="fc-head">
+<div class="fc-claim">[Bethlehem] when we controlled it, it was 80% Christian. When we did the Oslo Accords, we handed over Bethlehem... it went from 80% Christian to 20% Christian, 80% Muslim right now.</div>
+<div class="fc-source">On Bethlehem's Christian population decline</div>
+<span class="verdict v-misleading">Misleading</span>
+</div>
+<div class="fc-body">
+<p>The underlying trend Netanyahu describes — sustained decline of Bethlehem's Christian community — is real. The specific numbers and the implied causation are wrong.</p>
+<p>Bethlehem (plus Beit Sahour and Beit Jala) was approximately 86% Christian in 1950 — three decades <em>before</em> the Oslo Accords and well before Israeli control of the West Bank began in 1967. By 1947 it was already 85%. By the early 1990s — the eve of Oslo — Christians had already declined to roughly 60-65% by most estimates. The 2017 Palestinian census recorded approximately 10% Christian. So the decline from 86% to ~10% was a 70-year process across multiple political regimes (British Mandate, Jordanian rule 1948-67, Israeli military administration 1967-95, Palestinian Authority 1995-present).</p>
+<p>Netanyahu's framing — that Bethlehem was 80% Christian under Israeli control and then collapsed to 20% after Oslo — does not match the demographic record. The decline began long before Israeli control of the West Bank and continued through every regime since. Palestinian Christians themselves cite Israeli travel restrictions, economic difficulty, and emigration patterns alongside any complaints about PA governance.</p>
+
+<div class="figure">
+<div class="chart-wrap" style="background: var(--bg);">
+<div style="position: relative; width: 100%; height: 320px;">
+<canvas id="bethlehemChart" role="img" aria-label="Line chart showing the Christian percentage of Bethlehem's population from 1947 to 2025, declining from 85% to approximately 10%, with key political regime transitions marked: 1967 Israeli administration begins, 1995 Oslo handover to Palestinian Authority."></canvas>
+</div>
+</div>
+<p class="caption">Christian percentage of Bethlehem's population over time. The decline begins in the late 1940s and continues steadily through every political regime — British Mandate, Jordanian rule, Israeli military administration (from 1967), and Palestinian Authority (from 1995). The Oslo handover does not produce the visible inflection point Netanyahu's framing implies; the curve slope was already established for decades by then.</p>
+</div>
+<div class="fc-sources">
+<span class="label">Sources</span>
+<a href="https://www.ncronline.org/bethlehems-declining-christian-population-casts-shadow-over-christmas" target="_blank" rel="noopener">National Catholic Reporter on Bethlehem demographics</a> ·
+<a href="https://www.timesofisrael.com/christians-worry-silent-night-may-soon-refer-to-their-community-in-bethlehem/" target="_blank" rel="noopener">Times of Israel, decline in Christian population</a> ·
+<a href="https://thegroundtruthproject.org/road-emmaus-disappearance-christianity-land-faith-began/" target="_blank" rel="noopener">The GroundTruth Project, Christianity in the Holy Land</a> ·
+<a href="https://www.foxnews.com/world/christmas-returns-holy-land-cities-bethlehems-christian-population-dwindles-nazareth-remains-strong" target="_blank" rel="noopener">Fox News on the 2025 census figures</a>
+</div>
+</div>
+</div>
+
+<div class="fc">
+<div class="fc-head">
+<div class="fc-claim">We knocked out 20 top nuclear scientists who are working on the atomic bombs... 12 were knocked out in the first minute of Operation Roaring Line, Rising Line, first minute. And another eight were knocked out in uh now in the present operation.</div>
+<div class="fc-source">On Iranian nuclear scientists killed</div>
+<span class="verdict v-partly">Partly true</span>
+</div>
+<div class="fc-body">
+<p>The June 2025 Twelve-Day War (Operation Rising Lion) killed approximately 11 Iranian nuclear scientists according to PBS News, with later reporting suggesting up to 14 including some killed in car bombings outside the main strikes. The "12 in the first minute" framing is consistent with the IDF's own characterization of the opening salvo but compresses what was actually a wave of operations across the opening hours and days.</p>
+<p>The Foundation for Defense of Democracies, citing Israeli sources, reports a further "eight scientists" killed between February and April 2026 during the current war. So the cumulative total of approximately 20 is consistent with publicly available figures, with the caveat that the source is interested. Independent verification of individual identities is partial.</p>
+<div class="fc-sources">
+<span class="label">Sources</span>
+<a href="https://www.pbs.org/newshour/world/hundreds-of-thousands-mourn-top-iranian-military-leaders-and-scientists-killed-by-israeli-strikes" target="_blank" rel="noopener">PBS NewsHour on Twelve-Day War casualties</a> ·
+<a href="https://time.com/7293886/iranian-generals-scientists-targets-killed-by-israeli-strikes/" target="_blank" rel="noopener">TIME on Iranian generals and scientists killed</a> ·
+<a href="https://en.wikipedia.org/wiki/Twelve-Day_War" target="_blank" rel="noopener">Twelve-Day War (June 2025) reference</a> ·
+<a href="https://www.fdd.org/analysis/2026/05/06/oversights-mar-low-end-estimate-of-tehrans-nuclear-weapons-timeline/" target="_blank" rel="noopener">FDD on the cumulative 2025–2026 figure</a>
+</div>
+</div>
+</div>
+
+<div class="fc">
+<div class="fc-head">
+<div class="fc-claim">One out of 100 Iranians is in the secret police.</div>
+<div class="fc-source">On the size of Iran's internal security apparatus</div>
+<span class="verdict v-unverifiable">Unverifiable</span>
+</div>
+<div class="fc-body">
+<p>Iran's combined security and paramilitary structures — IRGC, Basij, regular intelligence services, plainclothes networks — are large but the specific 1% figure is not supported by a public source. The Basij paramilitary alone is variously estimated at several million members on paper, though active operational strength is far lower. The "1 in 100" framing functions rhetorically as a way to convey scale; it should not be treated as a research figure.</p>
+<div class="fc-sources">
+<span class="label">Sources</span>
+<a href="https://en.wikipedia.org/wiki/Basij" target="_blank" rel="noopener">Basij paramilitary force reference</a> ·
+<a href="https://en.wikipedia.org/wiki/Islamic_Revolutionary_Guard_Corps" target="_blank" rel="noopener">IRGC structure and strength estimates</a>
+</div>
+</div>
+</div>
+
+<div class="fc">
+<div class="fc-head">
+<div class="fc-claim">You trace the address to some basement in Pakistan... that's something that has hurt us badly.</div>
+<div class="fc-source">On the alleged origin of social media bot campaigns against Israel</div>
+<span class="verdict v-unverifiable">Unverifiable</span>
+</div>
+<div class="fc-body">
+<p>Coordinated inauthentic networks targeting Western publics on Israel-related topics are well-documented; major platforms have removed networks attributed variously to Iran, Russia, China, and assorted contractors. The specific "Pakistan basement" attribution is not corroborated by any cited investigation. It functions as rhetorical color — vivid enough to be memorable, specific enough to seem researched, vague enough to be unfalsifiable.</p>
+<p>The broader claim that anti-Israel sentiment in the US has been amplified by foreign-state information operations is plausible and partially documented; the claim that this is the <em>primary</em> driver of declining US support — as opposed to substantive disagreement with specific Israeli policies — is the contested part. The Pew survey cited by CBS shows a 20-point increase in US unfavorable views of Israel over four years, a magnitude difficult to explain by bot networks alone.</p>
+<div class="fc-sources">
+<span class="label">Sources</span>
+<a href="https://www.cbsnews.com/news/netanyahu-us-israel-iran-60-minutes-transcript/" target="_blank" rel="noopener">CBS News citing Pew survey on US views of Israel</a> ·
+<a href="https://www.pewresearch.org/short-reads/2025/04/02/americans-views-of-israel-turn-more-negative/" target="_blank" rel="noopener">Pew Research, Americans' views of Israel</a>
+</div>
+</div>
+</div>
+
+<div class="fc">
+<div class="fc-head">
+<div class="fc-claim">Hezbollah had 150,000 ballistic missiles and rockets before the war. 150,000. That's the densest concentration of these projectiles on the planet.</div>
+<div class="fc-source">On Hezbollah's pre-war arsenal</div>
+<span class="verdict v-plausible">Plausible</span>
+</div>
+<div class="fc-body">
+<p>The 150,000-rocket figure is widely cited in Israeli intelligence assessments and academic sources tracking Hezbollah. Most analysts characterize it as Hezbollah possessing one of the largest non-state arsenals in the world. The "densest concentration on the planet" framing is rhetorical but defensible — the figure exceeds the active stockpiles of many state militaries.</p>
+<p>One caveat: the 150,000 figure includes a wide range of munition types, most of which are short-range rockets rather than ballistic missiles in the strict sense. Conflating "rockets" with "ballistic missiles" inflates the perceived threat profile.</p>
+<div class="fc-sources">
+<span class="label">Sources</span>
+<a href="https://www.ajc.org/news/what-you-need-to-know-about-hezbollah-the-anti-israel-terror-group-with-more-firepower-than" target="_blank" rel="noopener">American Jewish Committee, Hezbollah arsenal explainer</a> ·
+<a href="https://en.wikipedia.org/wiki/Israel%E2%80%93Hezbollah_conflict_(2023%E2%80%93present)" target="_blank" rel="noopener">Israel–Hezbollah conflict reference</a>
+</div>
+</div>
+</div>
+
+<div class="note">
+<div class="label">A note on what fact-checking can and can't settle</div>
+Several major claims in the interview can't be tested against the public record — the precise nature of conversations in the White House Situation Room on February 11, the granular intelligence on Iran's leadership compounds, the specific operational details of the strikes, what Putin or Xi privately think about Iran. The unverifiability isn't a flaw in the fact-checking process; it's the structural condition under which heads of state describe ongoing wars. The honest analytical move is to mark those claims as unverifiable rather than assume them true because they're specific.
+</div>
+</section>
+
+<hr class="section">
+
+<section id="sources">
+<h2><span class="num">Sources &amp; references</span>Where to verify</h2>
+
+<p>The interview itself, plus the reporting and analysis drawn on in the fact-check section and throughout the analysis. Most links are to mainstream outlets and primary documents; where the source is an interested party (think tanks, government statements, advocacy groups), it's noted.</p>
+
+<div class="sources-section">
+
+<h3>The interview</h3>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=gL2jFwZ16xo" target="_blank" rel="noopener">Full interview video — 60 Minutes, YouTube</a></li>
+<li><a href="https://www.cbsnews.com/news/read-the-full-transcript-of-major-garretts-interview-with-israeli-prime-minister-benjamin-netanyahu-here/" target="_blank" rel="noopener">CBS News, full interview transcript</a></li>
+<li><a href="https://www.cbsnews.com/news/netanyahu-us-israel-iran-60-minutes-transcript/" target="_blank" rel="noopener">CBS News, Netanyahu wants to draw down US financial support (segment package)</a></li>
+<li><a href="https://www.cbsnews.com/news/netanyahu-israel-iran-war-not-over-60-minutes/" target="_blank" rel="noopener">CBS News, Iran war "not over" coverage</a></li>
+<li><a href="https://www.timesofisrael.com/netanyahu-says-iran-regimes-fall-not-guaranteed-acknowledges-hormuz-standoff-wasnt-foreseen/" target="_blank" rel="noopener">Times of Israel coverage of the interview</a></li>
+</ul>
+
+<h3>Frameworks referenced</h3>
+<ul>
+<li>Wilber, Ken. <em>A Theory of Everything</em> (Shambhala, 2000) — AQAL quadrants.</li>
+<li>O'Fallon, Terri, and Kim Barta. <em>The STAGES Matrix Roadmap: A Contemporary Model of Development Perspectives</em> (STAGES International, 2018). The STAGES levels used throughout this analysis (1.0 Impulsive through 6.5 Illumined) are from this source.</li>
+<li>Cook-Greuter, Susanne. <em>Ego Development: Nine Levels of Increasing Embrace</em> (2013) — developmental antecedent to STAGES.</li>
+<li>Loevinger, Jane. <em>Ego Development</em> (1976) — the foundational ego-development scale.</li>
+</ul>
+
+<h3>Iran nuclear program and the 2026 war</h3>
+<ul>
+<li><a href="https://time.com/article/2026/03/18/tulsi-gabbard-iran-nuclear-trump/" target="_blank" rel="noopener">TIME, Gabbard's Senate Intelligence testimony on Iran nuclear program</a></li>
+<li><a href="https://www.congress.gov/crs-product/IF12106" target="_blank" rel="noopener">Congressional Research Service, "Iran and Nuclear Weapons Production"</a></li>
+<li><a href="https://politicalwire.com/2026/05/05/irans-nuclear-timeline-remains-unchanged/" target="_blank" rel="noopener">Reuters/Political Wire, May 2026 IC assessment on Iran timeline</a></li>
+<li><a href="https://www.fdd.org/analysis/2026/05/06/oversights-mar-low-end-estimate-of-tehrans-nuclear-weapons-timeline/" target="_blank" rel="noopener">Foundation for Defense of Democracies (interested party — pro-Israel hawkish framing)</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Twelve-Day_War" target="_blank" rel="noopener">Wikipedia, Twelve-Day War (June 2025)</a></li>
+<li><a href="https://en.wikipedia.org/wiki/2026_Iran_war" target="_blank" rel="noopener">Wikipedia, 2026 Iran war</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Assassination_of_Ali_Khamenei" target="_blank" rel="noopener">Wikipedia, Assassination of Ali Khamenei</a></li>
+<li><a href="https://www.aljazeera.com/news/2026/3/22/did-iran-launch-missiles-at-us-uk-base-on-diego-garcia-heres-what-to-know" target="_blank" rel="noopener">Al Jazeera, Diego Garcia missile launch coverage</a></li>
+<li><a href="https://www.sipri.org/commentary/topical-backgrounder/2026/what-does-reported-attack-diego-garcia-tell-us-about-irans-missile-capabilities-qa-dr-markus" target="_blank" rel="noopener">SIPRI, Iran missile capabilities analysis</a></li>
+<li><a href="https://www.cnn.com/2026/03/21/politics/iran-missiles-diego-garcia" target="_blank" rel="noopener">CNN, Iran missile range and ICBM intelligence</a></li>
+<li><a href="https://www.hudson.org/defense-strategy/irans-attempted-strike-diego-garcia-emerging-strategic-threat-can-kasapoglu" target="_blank" rel="noopener">Hudson Institute (interested party — hawkish defense think tank)</a></li>
+<li><a href="https://theconversation.com/how-far-can-irans-ballistic-missiles-reach-a-defense-expert-explains-how-the-missiles-work-and-what-iran-can-and-cant-hit-279072" target="_blank" rel="noopener">The Conversation, ballistic missile range explainer</a></li>
+<li><a href="https://time.com/7293886/iranian-generals-scientists-targets-killed-by-israeli-strikes/" target="_blank" rel="noopener">TIME, Iranian generals and nuclear scientists killed</a></li>
+<li><a href="https://www.pbs.org/newshour/world/hundreds-of-thousands-mourn-top-iranian-military-leaders-and-scientists-killed-by-israeli-strikes" target="_blank" rel="noopener">PBS NewsHour, Iranian military and scientist funerals</a></li>
+</ul>
+
+<h3>Gaza casualties</h3>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Casualties_of_the_Gaza_war" target="_blank" rel="noopener">Wikipedia, Casualties of the Gaza war</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Civilian_casualty_ratio" target="_blank" rel="noopener">Wikipedia, Civilian casualty ratio (comparative data)</a></li>
+<li><a href="https://www.timesofisrael.com/idf-believes-70000-gazans-killed-in-war-as-claimed-by-hamas/" target="_blank" rel="noopener">Times of Israel, IDF accepting Gaza Health Ministry figures (January 2026)</a></li>
+<li><a href="https://aoav.org.uk/2026/why-israeli-claims-of-low-civilian-to-combatant-harm-in-gaza-do-not-hold-up/" target="_blank" rel="noopener">Action on Armed Violence, civilian-to-combatant ratio analysis (January 2026)</a></li>
+<li><a href="https://abuaardvark.substack.com/p/counting-casualties-in-israels-war" target="_blank" rel="noopener">Marc Lynch, MENA Academy, on counting casualties</a></li>
+</ul>
+
+<h3>Hezbollah and Lebanon</h3>
+<ul>
+<li><a href="https://www.jpost.com/israel-news/defense-news/article-890003" target="_blank" rel="noopener">Jerusalem Post, 85–90% IDF estimate on Hezbollah arsenal degradation</a></li>
+<li><a href="https://www.timesofisrael.com/idf-northern-command-chief-admits-israel-overestimated-damage-to-hezbollah-after-2024-war/" target="_blank" rel="noopener">Times of Israel, IDF Northern Command chief on overestimation</a></li>
+<li><a href="https://www.timesofisrael.com/rocket-barrages-underscore-remaining-potency-of-hezbollahs-gutted-arsenal/" target="_blank" rel="noopener">Times of Israel, Hezbollah arsenal potency</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Israel%E2%80%93Hezbollah_conflict_(2023%E2%80%93present)" target="_blank" rel="noopener">Wikipedia, Israel-Hezbollah conflict (2023–present)</a></li>
+<li><a href="https://www.ajc.org/news/what-you-need-to-know-about-hezbollah-the-anti-israel-terror-group-with-more-firepower-than" target="_blank" rel="noopener">American Jewish Committee (interested party — pro-Israel advocacy)</a></li>
+</ul>
+
+<h3>Bethlehem and Christian demographics</h3>
+<ul>
+<li><a href="https://www.ncronline.org/bethlehems-declining-christian-population-casts-shadow-over-christmas" target="_blank" rel="noopener">National Catholic Reporter, Bethlehem Christian decline</a></li>
+<li><a href="https://www.timesofisrael.com/christians-worry-silent-night-may-soon-refer-to-their-community-in-bethlehem/" target="_blank" rel="noopener">Times of Israel, Christian community in Bethlehem</a></li>
+<li><a href="https://thegroundtruthproject.org/road-emmaus-disappearance-christianity-land-faith-began/" target="_blank" rel="noopener">The GroundTruth Project, Christianity in the Holy Land</a></li>
+<li><a href="https://www.foxnews.com/world/christmas-returns-holy-land-cities-bethlehems-christian-population-dwindles-nazareth-remains-strong" target="_blank" rel="noopener">Fox News, 2025 Bethlehem population figures</a></li>
+</ul>
+
+<h3>US public opinion on Israel</h3>
+<ul>
+<li><a href="https://www.pewresearch.org/short-reads/2025/04/02/americans-views-of-israel-turn-more-negative/" target="_blank" rel="noopener">Pew Research Center, Americans' views of Israel</a></li>
+</ul>
+
+</div>
+</section>
+
+<hr class="section">
+
+<section id="pass7">
+<h2><span class="num">Pass 7</span>Synthesis</h2>
+
+<p>Reading the interview through these passes, the center of gravity becomes clear. The argument is a <strong>civilizational defense of strategic action</strong>, anchored in UL claims about fanaticism and will, validated by UR claims about precision, and made meaningful by LL claims about historical destiny. The structural shadows — Palestinian civilian numbers, coalition partners, settler governance, adversary interiority — are not omissions of detail but omissions whose absence is load-bearing.</p>
+
+<p>The clearest unifying pattern across the seven passes is <strong>cross-tier rhetorical positioning</strong>. Netanyahu does not operate at a single developmental level. He selects each register for what it does in the room. The war itself runs at 4.5 Strategist — multi-actor, multi-timescale systems thinking on Iran, Hormuz, and the Accords. The justification runs at 2.5 Conformist — civilizational, mythic-historical, in-group/out-group. The concession — the aid-to-partnership pivot — runs at 3.5 Achiever but is packaged to <em>read</em> as 4.0+ vision. The accountability move runs at 3.0 Expert procedural reasoning (a future commission). Each gear shift is fluent enough to be invisible inside any single answer. It is visible only when you map the full transcript.</p>
+
+<div class="figure">
+<div class="chart-wrap">
+<div style="position: relative; width: 100%; height: 360px;">
+<canvas id="crossTierChart" role="img" aria-label="Grouped horizontal bar chart showing the gap between substantive operation and rhetorical packaging across five topics. The war itself: 4.5 actual, 4.5 packaged. Aid-to-partnership pivot: 3.5 actual, 4.5 packaged. October 7 accountability: 3.0 actual, 4.0 packaged. Civilizational frame: 2.5 actual, 3.5 packaged. Adversary characterization: 1.5 actual, 3.0 packaged."></canvas>
+</div>
+</div>
+<p class="caption">Cross-tier rhetorical positioning. For each topic, the dark bar shows the developmental level the substantive cognitive operation runs at; the light bar shows the level the rhetorical packaging presents it as. Where the bars are equal length (the war itself), the work is presented as what it is. Where the light bar extends past the dark one, the gap is the rhetorical labor — the move sounds more sophisticated than the underlying cognition warrants. The pattern is the diagnostic, not any individual data point.</p>
+</div>
+
+<p>The most important thing this interview <em>enacts</em>, beyond what it argues, is a worldview in which Pluralist perspective-taking on adversaries is reframed as moral weakness. Netanyahu makes this explicit in his Will Durant invocation: "what is happening in some parts of Western society... fighting the bad people is bad because fighting is bad." This is a precise developmental claim, and it's a claim <em>against</em> post-conventional moral reasoning as such. Whether or not one shares his political conclusions, the developmental move is worth naming because it has implications well beyond this conflict.</p>
+
+<p>The fact-checks suggest a second pattern. The largest verifiable departures from the public record cluster in two places: claims about Iran's nuclear timeline (which contradict the US intelligence community's own assessment) and claims about Gaza civilian-to-combatant ratios (which depend on a contested counting method that classifies all military-age male deaths as combatants). These aren't peripheral details; they're the load-bearing claims that justify ongoing war. When an argument's most consequential factual assertions are the ones least supported by independent evidence, the integral analysis and the fact-check converge on the same finding: the frame is doing work the evidence can't.</p>
+
+<p>None of this means the underlying threats Netanyahu describes are unreal. Iran's regime is hostile to Israel and to the United States; Hezbollah is a heavily armed non-state actor; Hamas conducted the October 7 massacre and continues to hold hostages; anti-semitism is genuinely resurgent in parts of the West. The integral move is to hold those realities alongside, not against, the realities the frame excludes: Palestinian civilians killed in their tens of thousands; settler violence and far-right cabinet members with policy authority; an Israeli prime minister who has visibly resisted the very accountability commission he now proposes to American audiences; a fact-pattern in which the prime mover of two wars is now telling a sympathetic interviewer that his enemies' refusal to die quietly is evidence of their fanaticism.</p>
+
+<p>The work of an integral content analysis is to make both visible in the same frame. Which is, finally, what Netanyahu's frame structurally cannot do.</p>
+</section>
+
+<footer>
+<p>This is an independent analytical exercise applying a seven-pass integral content analysis protocol to a single primary source. Frameworks referenced: Ken Wilber's AQAL model; Terri O'Fallon and Kim Barta's STAGES Matrix (STAGES International, 2018); standard developmental-line theory; shadow analysis. Factual claims about events, casualty figures, and intelligence assessments are cited to publicly available reporting from May 10, 2026 and earlier. The transcript analyzed is the CBS News transcript of the May 10, 2026 60 Minutes interview between Major Garrett and Prime Minister Benjamin Netanyahu.</p>
+<p>An integral content analysis is a structural reading, not a political judgment. Readers should expect to encounter elements of the analysis they agree with and elements they don't; the test of the framework is whether it surfaces the same patterns regardless of which side of a political question the reader starts from.</p>
+</footer>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+(function() {
+  const data = [
+    { topic: 'Geopolitical strategy (Hormuz, Accords)', tier: 4.5, label: '4.5 Strategist' },
+    { topic: 'Military operations (planning, execution)', tier: 3.5, label: '3.5 Achiever' },
+    { topic: 'Aid → partnership pivot',                 tier: 3.5, label: '3.5 Achiever (packaged as 4.0+)' },
+    { topic: 'Jewish–Arab regional future',             tier: 3.5, label: '3.5 Achiever' },
+    { topic: 'Information / media war',                 tier: 3.2, label: '3.0–3.5 Expert / Achiever' },
+    { topic: 'Oct 7 accountability',                    tier: 3.0, label: '3.0 Expert (procedural)' },
+    { topic: 'Civilizational narrative',                tier: 2.5, label: '2.5 Conformist' },
+    { topic: 'Anti-semitism explanation',               tier: 2.5, label: '2.5 Conformist' },
+    { topic: 'Christian community in Israel',           tier: 2.5, label: '2.5 Conformist' },
+    { topic: 'Adversary interior (Iran, Hamas)',        tier: 1.5, label: '1.5 Egocentric (collapsed)' },
+  ];
+
+  const colors = data.map(d => {
+    if (d.tier >= 4.0) return '#2c5a3e';
+    if (d.tier >= 3.5) return '#4a3d6e';
+    if (d.tier >= 3.0) return '#7f6f3e';
+    if (d.tier >= 2.5) return '#8a6a16';
+    return '#7a2a1f';
+  });
+
+  const ctx = document.getElementById('stagesChart');
+  if (!ctx) return;
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: data.map(d => d.topic),
+      datasets: [{
+        label: 'STAGES tier engaged',
+        data: data.map(d => d.tier),
+        backgroundColor: colors,
+        borderWidth: 0,
+        borderRadius: 2,
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      layout: { padding: { left: 0, right: 16, top: 8, bottom: 8 } },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#1f1d1a',
+          titleFont: { family: 'Inter, sans-serif', size: 13, weight: '500' },
+          bodyFont: { family: 'Inter, sans-serif', size: 12 },
+          padding: 10,
+          callbacks: {
+            label: (ctx) => data[ctx.dataIndex].label
+          }
+        }
+      },
+      scales: {
+        x: {
+          min: 1, max: 5,
+          grid: { color: 'rgba(31,29,26,0.06)' },
+          ticks: {
+            stepSize: 0.5,
+            font: { family: 'Inter, sans-serif', size: 11 },
+            color: '#76726b',
+            callback: (v) => {
+              const labels = {
+                1.0: '1.0 Impulsive',
+                1.5: '1.5 Egocentric',
+                2.0: '2.0 Rule Oriented',
+                2.5: '2.5 Conformist',
+                3.0: '3.0 Expert',
+                3.5: '3.5 Achiever',
+                4.0: '4.0 Pluralist',
+                4.5: '4.5 Strategist',
+                5.0: '5.0 Construct Aware'
+              };
+              return labels[v] || '';
+            }
+          }
+        },
+        y: {
+          grid: { display: false, drawBorder: false },
+          ticks: {
+            font: { family: 'Iowan Old Style, Georgia, serif', size: 13 },
+            color: '#1f1d1a',
+            autoSkip: false
+          }
+        }
+      }
+    }
+  });
+})();
+</script>
+
+<script>
+(function() {
+  // Shared options helpers
+  const sansFont = '-apple-system, BlinkMacSystemFont, Inter, sans-serif';
+  const serifFont = 'Iowan Old Style, Georgia, serif';
+  const tooltipBase = {
+    backgroundColor: '#1f1d1a',
+    titleFont: { family: sansFont, size: 13, weight: '500' },
+    bodyFont: { family: sansFont, size: 12 },
+    padding: 10
+  };
+
+  // ============================================================
+  // 1. US public opinion on Israel — line chart (Pass 2)
+  // ============================================================
+  const opinionEl = document.getElementById('opinionChart');
+  if (opinionEl) {
+    new Chart(opinionEl, {
+      type: 'line',
+      data: {
+        labels: ['2013', '2017', '2019', '2022 (pre-Oct 7)', '2024', '2025'],
+        datasets: [{
+          label: '% unfavorable view of Israel (US adults)',
+          data: [37, 38, 41, 42, 53, 60],
+          borderColor: '#7a2a1f',
+          backgroundColor: 'rgba(122, 42, 31, 0.08)',
+          borderWidth: 2,
+          pointRadius: 4,
+          pointBackgroundColor: '#7a2a1f',
+          tension: 0.25,
+          fill: true
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        layout: { padding: { top: 16, right: 20, bottom: 8, left: 0 } },
+        plugins: {
+          legend: { display: false },
+          tooltip: Object.assign({}, tooltipBase, {
+            callbacks: { label: (ctx) => ctx.parsed.y + '% unfavorable' }
+          })
+        },
+        scales: {
+          x: {
+            grid: { color: 'rgba(31,29,26,0.06)' },
+            ticks: { font: { family: sansFont, size: 11 }, color: '#76726b' }
+          },
+          y: {
+            min: 30, max: 70,
+            grid: { color: 'rgba(31,29,26,0.06)' },
+            ticks: {
+              font: { family: sansFont, size: 11 },
+              color: '#76726b',
+              callback: (v) => v + '%'
+            }
+          }
+        }
+      }
+    });
+  }
+
+  // ============================================================
+  // 2. Fact-check verdict distribution — stacked horizontal bar
+  // ============================================================
+  const verdictEl = document.getElementById('verdictChart');
+  if (verdictEl) {
+    const verdictData = [
+      { label: 'Plausible (1)',                color: '#2c5a3e', count: 1 },
+      { label: 'Partly true (2)',              color: '#7f6f3e', count: 2 },
+      { label: 'Contested (1)',                color: '#8a6a16', count: 1 },
+      { label: 'Misleading (2)',               color: '#a3401f', count: 2 },
+      { label: 'Contradicts US intelligence (1)', color: '#7a2a1f', count: 1 },
+      { label: 'Unverifiable (2)',             color: '#76726b', count: 2 },
+    ];
+    new Chart(verdictEl, {
+      type: 'bar',
+      data: {
+        labels: ['Nine fact-checked claims'],
+        datasets: verdictData.map(d => ({
+          label: d.label,
+          data: [d.count],
+          backgroundColor: d.color,
+          borderWidth: 0,
+          barThickness: 36
+        }))
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        layout: { padding: { top: 8, right: 16, bottom: 8, left: 0 } },
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: {
+              font: { family: sansFont, size: 12 },
+              color: '#4a4742',
+              boxWidth: 12, boxHeight: 12, padding: 12,
+              usePointStyle: false
+            }
+          },
+          tooltip: Object.assign({}, tooltipBase, {
+            callbacks: { label: (ctx) => ctx.dataset.label }
+          })
+        },
+        scales: {
+          x: {
+            stacked: true, min: 0, max: 9,
+            grid: { display: false },
+            ticks: {
+              font: { family: sansFont, size: 11 },
+              color: '#76726b',
+              stepSize: 1
+            }
+          },
+          y: { stacked: true, grid: { display: false }, ticks: { display: false } }
+        }
+      }
+    });
+  }
+
+  // ============================================================
+  // 3. Iran nuclear timeline — bar chart (Fact-check #1)
+  // ============================================================
+  const nuclearEl = document.getElementById('nuclearChart');
+  if (nuclearEl) {
+    new Chart(nuclearEl, {
+      type: 'bar',
+      data: {
+        labels: [
+          'Trump administration: "two weeks"',
+          'Netanyahu: "a month or two"',
+          'US IC pre-strike (Reuters, IC assessment)',
+          'FDD post-strike estimate',
+          'DNI Gabbard, March 2026 testimony'
+        ],
+        datasets: [{
+          label: 'Months until potential nuclear weapon',
+          data: [0.5, 1.5, 10, 30, 0],
+          backgroundColor: ['#7a2a1f', '#7a2a1f', '#8a6a16', '#2c5a3e', '#2c5a3e'],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        layout: { padding: { top: 8, right: 80, bottom: 8, left: 0 } },
+        plugins: {
+          legend: { display: false },
+          tooltip: Object.assign({}, tooltipBase, {
+            callbacks: {
+              label: (ctx) => {
+                if (ctx.dataIndex === 4) return 'No active program — not building a weapon';
+                return ctx.parsed.x + ' month' + (ctx.parsed.x === 1 ? '' : 's');
+              }
+            }
+          })
+        },
+        scales: {
+          x: {
+            min: 0, max: 36,
+            grid: { color: 'rgba(31,29,26,0.06)' },
+            ticks: {
+              font: { family: sansFont, size: 11 },
+              color: '#76726b',
+              callback: (v) => v + ' mo'
+            },
+            title: {
+              display: true, text: 'Months until potential nuclear weapon',
+              font: { family: sansFont, size: 11 }, color: '#76726b'
+            }
+          },
+          y: {
+            grid: { display: false },
+            ticks: {
+              font: { family: serifFont, size: 12 },
+              color: '#1f1d1a',
+              autoSkip: false
+            }
+          }
+        }
+      },
+      plugins: [{
+        id: 'gabbardLabel',
+        afterDatasetsDraw(chart) {
+          const meta = chart.getDatasetMeta(0);
+          const bar = meta.data[4];
+          if (!bar) return;
+          const ctx = chart.ctx;
+          ctx.save();
+          ctx.font = '11px ' + sansFont;
+          ctx.fillStyle = '#2c5a3e';
+          ctx.textBaseline = 'middle';
+          ctx.fillText('  No active program', bar.x, bar.y);
+          ctx.restore();
+        }
+      }]
+    });
+  }
+
+  // ============================================================
+  // 4. Gaza civilian-to-combatant ratio comparison
+  // ============================================================
+  const gazaEl = document.getElementById('gazaChart');
+  if (gazaEl) {
+    const gazaData = [
+      { label: 'Gaza — IDF public claim',          value: 58, isGaza: true },
+      { label: 'Mosul 2016–17 (est.)',             value: 75, isGaza: false },
+      { label: 'Aleppo 2012–16 (est.)',            value: 75, isGaza: false },
+      { label: 'Iraq War overall, 2003–13',        value: 77, isGaza: false },
+      { label: 'Second Chechen War (Grozny)',       value: 81, isGaza: false },
+      { label: 'Gaza — Israeli internal (Aug 2025)', value: 83, isGaza: true },
+      { label: 'Gaza — AOAV independent (Jan 2026)', value: 89, isGaza: true },
+      { label: 'First Chechen War (Grozny)',        value: 90, isGaza: false }
+    ];
+    new Chart(gazaEl, {
+      type: 'bar',
+      data: {
+        labels: gazaData.map(d => d.label),
+        datasets: [{
+          label: 'Civilian percentage of total deaths',
+          data: gazaData.map(d => d.value),
+          backgroundColor: gazaData.map(d => d.isGaza ? '#7a2a1f' : '#b4b2a9'),
+          borderWidth: 0
+        }]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        layout: { padding: { top: 8, right: 24, bottom: 8, left: 0 } },
+        plugins: {
+          legend: { display: false },
+          tooltip: Object.assign({}, tooltipBase, {
+            callbacks: { label: (ctx) => ctx.parsed.x + '% civilian' }
+          })
+        },
+        scales: {
+          x: {
+            min: 0, max: 100,
+            grid: { color: 'rgba(31,29,26,0.06)' },
+            ticks: {
+              font: { family: sansFont, size: 11 },
+              color: '#76726b',
+              callback: (v) => v + '%'
+            },
+            title: {
+              display: true, text: 'Civilian % of total deaths',
+              font: { family: sansFont, size: 11 }, color: '#76726b'
+            }
+          },
+          y: {
+            grid: { display: false },
+            ticks: {
+              font: { family: serifFont, size: 12 },
+              color: '#1f1d1a',
+              autoSkip: false
+            }
+          }
+        }
+      }
+    });
+  }
+
+  // ============================================================
+  // 5. Bethlehem Christian population over time
+  // ============================================================
+  const bethlehemEl = document.getElementById('bethlehemChart');
+  if (bethlehemEl) {
+    new Chart(bethlehemEl, {
+      type: 'line',
+      data: {
+        labels: ['1947', '1967', '1990', '1998', '2007', '2017', '2025'],
+        datasets: [{
+          label: 'Christian % of Bethlehem population',
+          data: [85, 75, 60, 40, 30, 12, 10],
+          borderColor: '#7a2a1f',
+          backgroundColor: 'rgba(122, 42, 31, 0.08)',
+          borderWidth: 2,
+          pointRadius: 4,
+          pointBackgroundColor: '#7a2a1f',
+          tension: 0.25,
+          fill: true
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        layout: { padding: { top: 24, right: 24, bottom: 8, left: 0 } },
+        plugins: {
+          legend: { display: false },
+          tooltip: Object.assign({}, tooltipBase, {
+            callbacks: { label: (ctx) => ctx.parsed.y + '% Christian' }
+          })
+        },
+        scales: {
+          x: {
+            grid: { color: 'rgba(31,29,26,0.06)' },
+            ticks: { font: { family: sansFont, size: 11 }, color: '#76726b' }
+          },
+          y: {
+            min: 0, max: 100,
+            grid: { color: 'rgba(31,29,26,0.06)' },
+            ticks: {
+              font: { family: sansFont, size: 11 },
+              color: '#76726b',
+              callback: (v) => v + '%'
+            }
+          }
+        }
+      },
+      plugins: [{
+        id: 'regimeLines',
+        afterDatasetsDraw(chart) {
+          const ctx = chart.ctx;
+          const xAxis = chart.scales.x;
+          const yAxis = chart.scales.y;
+          const annotations = [
+            { x: '1967', label: '1967  Israeli administration begins' },
+            { x: '1990', label: '1995  Oslo handover to PA' }
+          ];
+          annotations.forEach(a => {
+            const xPos = xAxis.getPixelForValue(a.x);
+            ctx.save();
+            ctx.strokeStyle = 'rgba(31,29,26,0.25)';
+            ctx.setLineDash([4, 4]);
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(xPos, yAxis.top);
+            ctx.lineTo(xPos, yAxis.bottom);
+            ctx.stroke();
+            ctx.setLineDash([]);
+            ctx.font = '10px ' + sansFont;
+            ctx.fillStyle = '#4a4742';
+            ctx.textAlign = 'left';
+            ctx.fillText(a.label, xPos + 4, yAxis.top + 10);
+            ctx.restore();
+          });
+        }
+      }]
+    });
+  }
+
+  // ============================================================
+  // 6. Cross-tier rhetorical positioning — paired bars (Pass 7)
+  // ============================================================
+  const crossEl = document.getElementById('crossTierChart');
+  if (crossEl) {
+    new Chart(crossEl, {
+      type: 'bar',
+      data: {
+        labels: [
+          'The war itself',
+          'Aid → partnership pivot',
+          'Oct 7 accountability',
+          'Civilizational frame',
+          'Adversary characterization'
+        ],
+        datasets: [
+          {
+            label: 'Substantive operation (actual STAGES tier)',
+            data: [4.5, 3.5, 3.0, 2.5, 1.5],
+            backgroundColor: '#7a2a1f',
+            borderWidth: 0,
+            barPercentage: 0.7,
+            categoryPercentage: 0.85
+          },
+          {
+            label: 'Rhetorical packaging (presented as)',
+            data: [4.5, 4.5, 4.0, 3.5, 3.0],
+            backgroundColor: '#d4b8a0',
+            borderWidth: 0,
+            barPercentage: 0.7,
+            categoryPercentage: 0.85
+          }
+        ]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        layout: { padding: { top: 8, right: 24, bottom: 8, left: 0 } },
+        plugins: {
+          legend: {
+            position: 'top',
+            align: 'start',
+            labels: {
+              font: { family: sansFont, size: 12 },
+              color: '#4a4742',
+              boxWidth: 12, boxHeight: 12, padding: 14,
+              usePointStyle: false
+            }
+          },
+          tooltip: Object.assign({}, tooltipBase, {
+            callbacks: {
+              label: (ctx) => {
+                const v = ctx.parsed.x;
+                const labels = {
+                  1.5: '1.5 Egocentric',
+                  2.0: '2.0 Rule Oriented',
+                  2.5: '2.5 Conformist',
+                  3.0: '3.0 Expert',
+                  3.5: '3.5 Achiever',
+                  4.0: '4.0 Pluralist',
+                  4.5: '4.5 Strategist'
+                };
+                return (labels[v] || v) + ' — ' + ctx.dataset.label;
+              }
+            }
+          })
+        },
+        scales: {
+          x: {
+            min: 1, max: 5,
+            grid: { color: 'rgba(31,29,26,0.06)' },
+            ticks: {
+              stepSize: 0.5,
+              font: { family: sansFont, size: 10 },
+              color: '#76726b',
+              callback: (v) => {
+                const labels = {
+                  1.5: '1.5',
+                  2.0: '2.0',
+                  2.5: '2.5',
+                  3.0: '3.0',
+                  3.5: '3.5',
+                  4.0: '4.0',
+                  4.5: '4.5'
+                };
+                return labels[v] || '';
+              }
+            },
+            title: {
+              display: true, text: 'STAGES tier',
+              font: { family: sansFont, size: 11 }, color: '#76726b'
+            }
+          },
+          y: {
+            grid: { display: false },
+            ticks: {
+              font: { family: serifFont, size: 13 },
+              color: '#1f1d1a',
+              autoSkip: false
+            }
+          }
+        }
+      }
+    });
+  }
+})();
+</script>
+
+</body>
+</html>
